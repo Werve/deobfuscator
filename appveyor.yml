@@ -9,13 +9,7 @@ install:
 - cmd: git submodule update --init --recursive
 build_script:
 - cmd: >-
-    appveyor-retry nuget restore dnlib\dnlib.sln
-    
-    msbuild dnlib\dnlib.sln /p:Configuration=Release /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-
-    appveyor-retry nuget restore de4dot\de4dot.sln
-    
-    msbuild de4dot\de4dot.sln /p:Configuration=Release /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    appveyor-retry nuget restore dnlib
 
     appveyor-retry nuget restore "ConfuserEx Dynamic Unpacker.sln"
     
