@@ -1,14 +1,17 @@
-version: 1.0.{build}
-pull_requests:
-  do_not_increment_build_number: true
-image: Visual Studio 2017
+version: x.x.{build}
+branches:
+  only:
+  - master
+skip_tags: true
+image: Visual Studio 2019
 configuration: Release
-platform: Any CPU
-before_build:
+install:
 - cmd: git submodule update --init --recursive
-build:
-  project: ConfuserEx Dynamic Unpacker.sln
-  verbosity: normal
+build_script:
+- cmd: >-
+    appveyor-retry nuget restore ConfuserEx Dynamic Unpacker.sln
+    
+    msbuild ConfuserEx Dynamic Unpacker.sln /p:Configuration=Release /m /verbosity:normal /p:WarningLevel=0 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 artifacts:
 - path: ConfuserEx Dynamic Unpacker\bin
   name: ConfuserEx-Unpacker v%APPVEYOR_BUILD_VERSION%
